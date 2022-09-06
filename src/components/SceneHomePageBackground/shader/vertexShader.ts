@@ -1,13 +1,11 @@
 import { glsl } from "../../../helpers/glsl";
 
 export const vertexShader = glsl`
-  out vec2 screenPosition;
+  varying vec3 vPos;
 
   void main() {
-    vec4 finalPosition = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
-
-    screenPosition = vec2(finalPosition.xyz / finalPosition.w);
-
-    gl_Position = finalPosition;
+    vPos = position;
+    vec3 viewPosition = (modelViewMatrix * vec4(position, 1.)).xyz;
+    gl_Position = projectionMatrix * vec4(viewPosition, 1.);
   }
 `;

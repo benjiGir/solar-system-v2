@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { Mesh, Clock, PerspectiveCamera, Vector2 } from 'three';
+import { Mesh, Clock, PerspectiveCamera, Vector2, Vector3 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Plane } from '@react-three/drei';
 import { vertexShader} from './shader/vertexShader';
@@ -11,22 +11,19 @@ function PlaneHomePageBackground() {
 
   const shaderData = useMemo(() => ({
     uniforms: {
-      time :{ value: 0 },
-      aspect: { value: 0.5 },
-      mouse: { value: new Vector2(0, 0) },
+      iTime :{ value: 0 },
+      iResolution: { value: new Vector3(viewport.width, viewport.height, 1) },
+      iMouse: { value: new Vector2(0, 0) },
     },
     vertexShader,
     fragmentShader,
   }), []);
 
-  useFrame((state) => {
-    const x = (state.mouse.x * viewport.width) / 2;
-    const y = (state.mouse.y * viewport.height) / 2;
-    shaderData.uniforms.mouse.value = new Vector2(x, y);
-  })
-
-  useFrame(({ clock }: { clock: Clock }) => {
-    shaderData.uniforms.time.value = clock.getElapsedTime() / 1000;
+  useFrame(({ clock, mouse }: { clock: Clock, mouse: Vector2 }) => {
+    const x = (mouse.x * viewport.width) / 2;
+    const y = (mouse.y * viewport.height) / 2;
+    shaderData.uniforms.iMouse.value = new Vector2(x, y);
+    shaderData.uniforms.iTime.value = clock.getElapsedTime() / 1000;
   });
 
   return (
