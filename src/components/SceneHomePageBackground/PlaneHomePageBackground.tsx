@@ -17,27 +17,24 @@ interface IPlaneShaderProps {
 
 function PlaneHomePageBackground() {
   const ref = useRef<Mesh>(null)
-  const { viewport } = useThree();
+  const { viewport} = useThree();
 
   const shaderData = useMemo<IPlaneShaderProps>(() => ({
     uniforms: {
       iTime :{ value: 0 },
-      iResolution: { value: new Vector3(viewport.width, viewport.height, 1) },
+      iResolution: { value: new Vector3(2, 5, 0) },
       iMouse: { value: new Vector2(0, 0) },
     },
     vertexShader,
     fragmentShader,
   }), []);
 
-  useFrame(({ clock, mouse }: { clock: Clock, mouse: Vector2 }) => {
-    const x = (mouse.x * viewport.width) / 2;
-    const y = (mouse.y * viewport.height) / 2;
-    shaderData.uniforms.iMouse.value = new Vector2(x, y);
-    shaderData.uniforms.iTime.value = clock.getElapsedTime() / 1000;
+  useFrame(({ clock }: { clock: Clock }) => {
+    shaderData.uniforms.iTime.value = clock.getElapsedTime() / 10; 
   });
 
   return (
-    <Plane ref={ref} scale={[20,10,10]}>
+    <Plane ref={ref} scale={[viewport.width, viewport.height, 2]}>
       <shaderMaterial {...shaderData}/>
     </Plane>
   )
