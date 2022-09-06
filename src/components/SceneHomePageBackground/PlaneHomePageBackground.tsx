@@ -1,15 +1,25 @@
 import { useRef, useMemo } from 'react';
-import { Mesh, Clock, PerspectiveCamera, Vector2, Vector3 } from 'three';
+import { Mesh, Clock, Vector2, Vector3 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Plane } from '@react-three/drei';
 import { vertexShader} from './shader/vertexShader';
 import { fragmentShader } from './shader/fragmentShader';
 
+interface IPlaneShaderProps {
+  uniforms: {
+    iTime: { value: number };
+    iResolution: { value: Vector3 };
+    iMouse: { value: Vector2 };
+  };
+  vertexShader: string;
+  fragmentShader: string;
+}
+
 function PlaneHomePageBackground() {
   const ref = useRef<Mesh>(null)
   const { viewport } = useThree();
 
-  const shaderData = useMemo(() => ({
+  const shaderData = useMemo<IPlaneShaderProps>(() => ({
     uniforms: {
       iTime :{ value: 0 },
       iResolution: { value: new Vector3(viewport.width, viewport.height, 1) },
