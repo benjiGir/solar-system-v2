@@ -27,6 +27,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react/no-unknown-property": "off",
+        "react-hooks/rules-of-hooks": "warn"
     },
     "settings": {
         "react": {
