@@ -9,7 +9,7 @@ function SceneHomePageBackground() {
   const navigate = useNavigate();
 
   const navigateToExplore = () => {
-    navigate('/');
+    navigate('/solar-system');
   }
 
   return (
