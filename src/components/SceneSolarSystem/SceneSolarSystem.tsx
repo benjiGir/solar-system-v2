@@ -1,11 +1,17 @@
-import React from 'react'
+import { usePlanetsDataStore } from '../../stores/planetDataStore'
+import Planet from '../Planet/Planet';
 
 function SceneSolarSystem() {
+  const planetsData = usePlanetsDataStore(state => state.planetsData);
+
   return (
-    <mesh>
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial color="red" />
-    </mesh>
+    <>
+      {
+        planetsData.map((planet) => {
+          return ( <Planet key={planet.id} planet={planet} /> )
+        }
+      )}
+    </>
   )
 }
 
