@@ -3,8 +3,12 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { Mesh, TextureLoader } from 'three';
 import { TPlanet, TEarth } from '../../types/planet.type';
 
+type TProps = {
+  planet: TPlanet;
+}
 
-function Planet(planet: TPlanet): JSX.Element {
+
+function Planet({planet}: TProps): JSX.Element {
   const planetRef = useRef<Mesh>(null);
     
   useFrame(({clock}) => {
@@ -22,14 +26,14 @@ function Planet(planet: TPlanet): JSX.Element {
       <sphereGeometry attach="geometry" args={[planet.diameter, 64, 64]} />
       {planet.name === 'Earth' ? (
         <>
+        <meshPhongMaterial 
+          attach="material" 
+          specularMap={useLoader(TextureLoader, (planet.texture as TEarth).specularMap)} />
         <meshStandardMaterial 
           attach="material" 
           map={useLoader(TextureLoader, (planet.texture as TEarth).colorMap)}
           normalMap={useLoader(TextureLoader, (planet.texture as TEarth).normalMap)} />
-        <meshPhongMaterial 
-          attach="material" 
-          specularMap={useLoader(TextureLoader, (planet.texture as TEarth).specularMap)} />
-        </>
+          </>
       ) : (
         <meshStandardMaterial attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
       )}
