@@ -17,9 +17,9 @@ export type TEarth = {
   specularMap: string;
 }
 
-type TOtherPlanet = string;
+export type TOtherPlanet = string;
 
-type TMoon = {
+export type TMoon = {
   name: string;
   diameter: number;
   distFromPlanet: number;

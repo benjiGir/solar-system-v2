@@ -1,28 +1,18 @@
 import { useRef, useMemo } from 'react';
-import { Texture, ShaderMaterial, Vector4, Vector2, DoubleSide } from 'three';
+import { ShaderMaterial, Vector4, Vector2, DoubleSide } from 'three';
 
 import { sunShaderTextureVertex } from './shader/sunShaderTexture.vertex';
 import { sunShaderTextureFragment } from './shader/sunShaderTexture.fragment';
 import { RootState, useFrame } from '@react-three/fiber';
 import { useSunStore } from '../../stores/sunStore';
-
-interface ISunShaderTextureProps {
-  uniforms: {
-    time: { value: number };
-    uPerlin: { value: Texture | null };
-    resolution: { value: Vector4 };
-    uvRate1: { value: Vector2 };
-  };
-  sunShaderTextureVertex: string;
-  sunShaderTextureFragment: string;
-}
+import { TSunShaderTextureProps } from './sun.type';
 
 function SunObject(): JSX.Element {
   const texture = useSunStore((state) => state.texture);
 
   const meshRef = useRef<ShaderMaterial>(null);
 
-  const sunObjectShaderData = useMemo<ISunShaderTextureProps>(() => ({
+  const sunObjectShaderData = useMemo<TSunShaderTextureProps>(() => ({
     uniforms: {
       time: { value: 0 },
       uPerlin: { value: null },

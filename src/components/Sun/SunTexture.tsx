@@ -7,22 +7,12 @@ import {
   ShaderMaterial, 
   CubeCamera, 
   Vector4, 
-  DoubleSide, 
-  Texture } from 'three';
+  DoubleSide } from 'three';
 import { sunShaderVertex } from './shader/sunShader.vertex';
 import { sunShaderFragment } from './shader/sunShader.fragment';
 import { RootState, useFrame } from '@react-three/fiber';
 import { useSunStore } from '../../stores/sunStore';
-
-interface ISunShaderProps {
-  uniforms: {
-    time: { value: number };
-    resolution: { value: Vector4 };
-    envMap: { value: Texture };
-  };
-  sunShaderVertex: string;
-  sunShaderFragment: string;
-}
+import { TSunShaderProps } from './sun.type';
 
 function SunTexture(): JSX.Element {
   const setTexture = useSunStore((state) => state.setTexture);
@@ -39,7 +29,7 @@ function SunTexture(): JSX.Element {
   const sunRef = useRef<ShaderMaterial>(null);
   const cameraRef = useRef<CubeCamera>(null);
 
-  const sunShaderData = useMemo<ISunShaderProps>(() => ({
+  const sunShaderData = useMemo<TSunShaderProps>(() => ({
     uniforms: {
       time: { value: 0 },
       resolution: { value: new Vector4() },
