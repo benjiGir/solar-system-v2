@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { Mesh, TextureLoader } from 'three';
 import { TPlanet, TEarth } from '../../types/planet.type';
+import Ring from '../Ring/Ring';
 
 type TProps = {
   planet: TPlanet;
@@ -22,22 +23,27 @@ function Planet({planet}: TProps): JSX.Element {
   });
   
   return (
-    <mesh ref={planetRef} receiveShadow castShadow>
-      <sphereGeometry attach="geometry" args={[planet.diameter, 64, 64]} />
-      {planet.name === 'Earth' ? (
-        <>
-        <meshPhongMaterial 
-          attach="material" 
-          specularMap={useLoader(TextureLoader, (planet.texture as TEarth).specularMap)} />
-        <meshStandardMaterial 
-          attach="material" 
-          map={useLoader(TextureLoader, (planet.texture as TEarth).colorMap)}
-          normalMap={useLoader(TextureLoader, (planet.texture as TEarth).normalMap)} />
-          </>
-      ) : (
-        <meshStandardMaterial attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
-      )}
-    </mesh>
+    <>
+      <mesh ref={planetRef} castShadow>
+        <sphereGeometry attach="geometry" args={[planet.diameter, 64, 64]} />
+        {planet.name === 'Earth' ? (
+          <>
+          <meshPhongMaterial 
+            attach="material" 
+            specularMap={useLoader(TextureLoader, (planet.texture as TEarth).specularMap)} />
+          <meshStandardMaterial 
+            attach="material" 
+            map={useLoader(TextureLoader, (planet.texture as TEarth).colorMap)}
+            normalMap={useLoader(TextureLoader, (planet.texture as TEarth).normalMap)} />
+            </>
+        ) : (
+          <meshStandardMaterial attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
+        )}
+      </mesh>
+      {planet.name === 'Saturn' ? (
+        <Ring planetRef={planetRef} />
+      ) : null}
+    </>
   )
 }
 
