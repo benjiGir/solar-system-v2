@@ -44,11 +44,11 @@ function Ring({ planetRef }: TRingProps): JSX.Element {
     <mesh
       ref={ringRef}
       rotation={[Math.PI / 2, Math.PI / 8, 0]}
-      receiveShadow
+      receiveShadow={true}
+      castShadow={true}
     >
       <ringBufferGeometry attach='geometry' args={[12, 20, 64]} />
       <shaderMaterial
-        attach='material'
         uniforms={ringShaderData.uniforms}
         vertexShader={ringShaderData.ringVertexShader}
         fragmentShader={ringShaderData.ringFragmentShader}

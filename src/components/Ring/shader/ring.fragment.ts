@@ -16,6 +16,8 @@ export const ringFragmentShader = glsl`
       return pixel;
     }
     void main() {
-      gl_FragColor = color();
+      vec4 color = color();
+    
+      gl_FragColor = color;
     }
   `;

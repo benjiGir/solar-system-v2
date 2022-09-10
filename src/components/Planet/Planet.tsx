@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { Mesh, TextureLoader } from 'three';
+import { DoubleSide, Mesh, TextureLoader } from 'three';
 import { TPlanet, TEarth } from '../../types/planet.type';
 import Ring from '../Ring/Ring';
 
@@ -24,7 +24,7 @@ function Planet({planet}: TProps): JSX.Element {
   
   return (
     <>
-      <mesh ref={planetRef} castShadow>
+      <mesh ref={planetRef} receiveShadow={true} castShadow={true}>
         <sphereGeometry attach="geometry" args={[planet.diameter, 64, 64]} />
         {planet.name === 'Earth' ? (
           <>
@@ -37,7 +37,7 @@ function Planet({planet}: TProps): JSX.Element {
             normalMap={useLoader(TextureLoader, (planet.texture as TEarth).normalMap)} />
             </>
         ) : (
-          <meshStandardMaterial attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
+          <meshStandardMaterial shadowSide={DoubleSide} attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
         )}
       </mesh>
       {planet.name === 'Saturn' ? (

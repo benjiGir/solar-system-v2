@@ -13,22 +13,9 @@ function SolarSystem() {
   return (
     <Suspense fallback={null}>
       <Canvas shadows camera={{ position: [0, 100, 250], fov: 80, near: 0.1, far: 10000}}>
-        <pointLight 
+      <pointLight 
           position={[0, 0, 0]}
-        />
-        <directionalLight
-          ref={ref}
-          position={[0, 0, 0]}
-          intensity={1}
-          castShadow
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-          shadow-camera-far={1000}
-          shadow-camera-left={-100}
-          shadow-camera-right={100}
-          shadow-camera-top={100}
-          shadow-camera-bottom={-100}
-        />
+        />  
         <Suspense fallback={null}>
           <Sun />
         </Suspense>
