@@ -1,33 +1,49 @@
-import { Suspense, lazy, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Suspense, lazy } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { FlyControls } from '@react-three/drei';
-import { DirectionalLight } from 'three';
+import Loader  from '../components/Loader/Loader';
+import { Camera, Vector3 } from 'three';
 
 
 const SceneSolarSystem = lazy(() => import('../components/SceneSolarSystem/SceneSolarSystem'));
 const Sun = lazy(() => import('../components/Sun/Sun'));
 
 function SolarSystem() {
-  const ref = useRef<DirectionalLight>(null);
+
+  const MoveCamera = () => {
+    let cameraMoved = false;
+    const vec = new Vector3();
+
+    useFrame(({camera}) => {
+      if (!cameraMoved) {
+        camera.position.lerp(vec.set(0, 50, 250), 0.01);
+      }
+      if (camera.position.distanceTo(vec) < 1) {
+        cameraMoved = true;
+      }
+    });
+    return null;
+  };
 
   return (
-    <Suspense fallback={null}>
-      <Canvas shadows camera={{ position: [0, 100, 250], fov: 80, near: 0.1, far: 10000}}>
-      <pointLight 
+    <Canvas shadows camera={{ position: [0, 0, 10], fov: 80, near: 0.1, far: 10000}}>
+      <Suspense fallback={<Loader/>}>
+        <pointLight 
           position={[0, 0, 0]}
         />  
         <Suspense fallback={null}>
           <Sun />
         </Suspense>
         <SceneSolarSystem />
+        <MoveCamera />
         <FlyControls 
           autoForward={false} 
           dragToLook={true} 
           rollSpeed={.5} 
           movementSpeed={50.0} 
           rotation={[Math.PI, Math.PI, Math.PI]}/>
-      </Canvas>
-    </Suspense>
+      </Suspense>
+    </Canvas>
   )
 }
 
