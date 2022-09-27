@@ -1,8 +1,8 @@
 import { Suspense, lazy } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { FlyControls } from '@react-three/drei';
 import Loader  from '../components/Loader/Loader';
-import { Camera, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 
 const SceneSolarSystem = lazy(() => import('../components/SceneSolarSystem/SceneSolarSystem'));

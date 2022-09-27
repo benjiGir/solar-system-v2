@@ -15,8 +15,8 @@ function Planet({planet}: TProps): JSX.Element {
   useFrame(({clock}) => {
     if (planetRef.current) {
       const time = ((clock.getElapsedTime() * planet.orbitalSpeed) % 360) * (Math.PI / 180);
-      const x = ((planet.distFromSun * 4) * Math.sin(time));
-      const z = ((planet.distFromSun * 3) * Math.cos(time));
+      const x = ((planet.distFromCenter * 4) * Math.sin(time));
+      const z = ((planet.distFromCenter * 3) * Math.cos(time));
       planetRef.current.position.set(x, 0, z);
       planetRef.current.rotation.y += planet.spinSpeed;
     }

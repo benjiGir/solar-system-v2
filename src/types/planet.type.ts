@@ -1,15 +1,18 @@
-export type TPlanet = {
+export type TAstralObject = {
   id: number;
+  type: EAstralType;
   name: string;
   diameter: number;
-  distFromSun: number;
+  distFromCenter: number;
   orbitalSpeed: number;
   spinSpeed: number;
   texture: TPlanetTexture;
-  moon?: TMoon;
 }
 
-export type TPlanetTexture = TEarth | TOtherPlanet;
+export type TPlanet = TAstralObject;
+export type TMoon = TAstralObject;
+
+export type TPlanetTexture = TEarth | TOtherAstralObject;
 
 export type TEarth = {
   colorMap: string;
@@ -17,13 +20,10 @@ export type TEarth = {
   specularMap: string;
 }
 
-export type TOtherPlanet = string;
+export type TOtherAstralObject = string;
 
-export type TMoon = {
-  name: string;
-  diameter: number;
-  distFromPlanet: number;
-  orbitalSpeed: number;
-  spinSpeed: number;
-  texture: string;
+export enum EAstralType {
+  Planet,
+  Moon,
+  AsteroidBelt
 }
