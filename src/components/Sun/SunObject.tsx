@@ -5,7 +5,7 @@ import { sunShaderTextureVertex } from './shader/sunShaderTexture.vertex';
 import { sunShaderTextureFragment } from './shader/sunShaderTexture.fragment';
 import { RootState, useFrame } from '@react-three/fiber';
 import { useSunStore } from '../../stores/sunStore';
-import { TSunShaderTextureProps } from './sun.type';
+import { TSunShaderTextureProps } from './types/sun.type';
 
 function SunObject(): JSX.Element {
   const texture = useSunStore((state) => state.texture);
