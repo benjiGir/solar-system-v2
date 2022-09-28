@@ -1,5 +1,5 @@
 import create from "zustand";
-import { TPlanet } from "../types/planet.type";
+import { EAstralType, TPlanet } from "../types/planet.type";
 
 interface IPlanetDataStore {
   planetsData: TPlanet[];
@@ -9,27 +9,30 @@ export const usePlanetsDataStore = create<IPlanetDataStore>(() => ({
   planetsData: [
     {
       id: 1,
+      type: EAstralType.Planet,
       name: "Mercury",
       diameter: 0.39,
-      distFromSun: 29.163,
+      distFromCenter: 29.163,
       orbitalSpeed: 1.6,
       spinSpeed: 0.00058,
       texture: "src/assets/Mercury/8k_mercury.jpg",
     },
     {
       id: 2,
+      type: EAstralType.Planet,
       name: "Venus",
       diameter: 0.94,
-      distFromSun: 32.767,
+      distFromCenter: 32.767,
       orbitalSpeed: 1.2,
       spinSpeed: -0.0024,
       texture: "src/assets/Venus/8k_venus_surface.jpg",
     },
     {
       id: 3,
+      type: EAstralType.Planet,
       name: "Earth",
       diameter: 1,
-      distFromSun: 35.745,
+      distFromCenter: 35.745,
       orbitalSpeed: 1,
       spinSpeed: 0.01,
       texture: {
@@ -39,6 +42,7 @@ export const usePlanetsDataStore = create<IPlanetDataStore>(() => ({
       },
       moon: {
         name: "Moon",
+        type: EAstralType.Moon,
         diameter: 0.27,
         distFromPlanet: 4,
         orbitalSpeed: 0.0343,
@@ -48,45 +52,50 @@ export const usePlanetsDataStore = create<IPlanetDataStore>(() => ({
     },
     {
       id: 4,
+      type: EAstralType.Planet,
       name: "Mars",
       diameter: 0.53,
-      distFromSun: 41.368,
+      distFromCenter: 41.368,
       orbitalSpeed: 0.8,
       spinSpeed: 0.009,
       texture: "src/assets/Mars/8k_mars.jpg",
     },
     {
       id: 5,
+      type: EAstralType.Planet,
       name: "Jupiter",
       diameter: 11.2,
-      distFromSun: 80.904,
+      distFromCenter: 80.904,
       orbitalSpeed: 0.43,
       spinSpeed: 0.021,
       texture: "src/assets/Jupiter/8k_jupiter.jpg",
     },
     {
       id: 6,
+      type: EAstralType.Planet,
       name: "Saturn",
       diameter: 9.5,
-      distFromSun: 127.521,
+      distFromCenter: 127.521,
       orbitalSpeed: 0.32,
       spinSpeed: 0.02,
       texture: "src/assets/Saturn/8k_saturn.jpg",
     },
     {
       id: 7,
+      type: EAstralType.Planet,
       name: "Uranus",
       diameter: 4,
-      distFromSun: 231.214,
+      distFromCenter: 231.214,
       orbitalSpeed: 0.22,
       spinSpeed: -0.0133,
       texture: "src/assets/Uranus/2k_uranus.jpg",
     },
     {
       id: 8,
+      type: EAstralType.Planet,
       name: "Neptune",
       diameter: 3.9,
-      distFromSun: 348.291,
+      distFromCenter: 348.291,
       orbitalSpeed: 0.18,
       spinSpeed: 0.0142,
       texture: "src/assets/Neptune/2k_neptune.jpg",
