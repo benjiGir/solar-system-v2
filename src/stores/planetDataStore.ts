@@ -45,7 +45,6 @@ export const usePlanetsDataStore = create<IPlanetDataStore>(() => ({
         id: 1,
         type: EAstralType.Moon,
         name: "Moon",
-        type: EAstralType.Moon,
         diameter: 0.27,
         distFromCenter: 4,
         orbitalSpeed: 0.0343,
