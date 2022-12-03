@@ -7,6 +7,7 @@ export type TAstralObject = {
   orbitalSpeed: number;
   spinSpeed: number;
   texture: TPlanetTexture;
+  moon?: Omit<TAstralObject, 'moon'>;
 }
 
 export type TPlanet = TAstralObject;
@@ -18,6 +19,7 @@ export type TEarth = {
   colorMap: string;
   normalMap: string;
   specularMap: string;
+  earthClouds: string;
 }
 
 export type TOtherAstralObject = string;

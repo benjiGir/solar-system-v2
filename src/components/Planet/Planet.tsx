@@ -3,11 +3,12 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { DoubleSide, Mesh, TextureLoader } from 'three';
 import { TPlanet, TEarth } from '../../types/planet.type';
 import Ring from '../Ring/Ring';
+import EarthClouds from '../Clouds/EarthClouds';
+import Moon from '../Moon/Moon';
 
 type TProps = {
   planet: TPlanet;
 }
-
 
 function Planet({planet}: TProps): JSX.Element {
   const planetRef = useRef<Mesh>(null);
@@ -35,11 +36,15 @@ function Planet({planet}: TProps): JSX.Element {
             attach="material" 
             map={useLoader(TextureLoader, (planet.texture as TEarth).colorMap)}
             normalMap={useLoader(TextureLoader, (planet.texture as TEarth).normalMap)} />
-            </>
+            <EarthClouds texture={(planet.texture as TEarth).earthClouds}/>
+          </>
         ) : (
           <meshStandardMaterial shadowSide={DoubleSide} attach="material" map={useLoader(TextureLoader, planet.texture as string)} />
         )}
       </mesh>
+      {planet.moon ? (
+        <Moon planetRef={planetRef} moon={planet.moon}/>
+      ) : null}
       {planet.name === 'Saturn' ? (
         <Ring planetRef={planetRef} />
       ) : null}
